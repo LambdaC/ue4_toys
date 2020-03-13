@@ -1,3 +1,5 @@
+Over the course of this tutorial, you will learn to react to player input by extending the Pawn class.
+
 There are two types of input mappings: Action and Axis.
 
 - **Action Mappings** are useful to think of as "yes or no" inputs, like the buttons on a mouse or joystick. They report when they are pressed, released, double-clicked, or held down for a short time. Discrete actions like jumping, shooting, or interacting with objects are good candidates for this type of mapping.
