@@ -10,3 +10,7 @@ While input mappings can be defined directly in code, the usual method is to def
 
 
 ![ConfigureInput.png](https://docs.unrealengine.com/Images/Programming/Tutorials/PlayerInput/ConfigureInput.jpg)
+
+
+
+https://docs.unrealengine.com/en-US/Programming/Tutorials/PlayerInput/index.html
