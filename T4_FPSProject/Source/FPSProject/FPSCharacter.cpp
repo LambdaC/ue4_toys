@@ -42,6 +42,14 @@ void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
     // // Set up "movement" bindings.
     PlayerInputComponent->BindAxis("MoveForward", this, &AFPSCharacter::MoveForward);
     PlayerInputComponent->BindAxis("MoveRight", this, &AFPSCharacter::MoveRight);
+
+    // Set up "look" bindings.
+    PlayerInputComponent->BindAxis("Turn", this, &AFPSCharacter::AddControllerYawInput);
+    PlayerInputComponent->BindAxis("LookUp", this, &AFPSCharacter::AddControllerPitchInput);
+
+    // Set up "action" bindings.
+    PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AFPSCharacter::StartJump);
+    PlayerInputComponent->BindAction("Jump", IE_Released, this, &AFPSCharacter::StopJump);
 }
 
 void AFPSCharacter::MoveForward(float Value)
@@ -60,4 +68,12 @@ void AFPSCharacter::MoveRight(float Value)
     // UE_LOG(LogTemp, Warning, TEXT("MoveRight: %f"), Value);
 }
 
+void AFPSCharacter::StartJump()
+{
+    bPressedJump = true;
+}
 
+void AFPSCharacter::StopJump()
+{
+    bPressedJump = false;
+}
