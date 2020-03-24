@@ -3,6 +3,9 @@
 
 #include "Components/InputComponent.h"
 #include "GameFramework/Controller.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "FPSCharacter.h"
 
 // Sets default values
@@ -11,7 +14,32 @@ AFPSCharacter::AFPSCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+    // Create a first person camera component.
+    FPSCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 
+    // Attach the camera component to our capsule component.
+    FPSCameraComponent->SetupAttachment(GetCapsuleComponent());
+
+    // Position the camera slightly above the eyes.
+    FPSCameraComponent->SetRelativeLocation(FVector(0.f, 0.f, 50.f + BaseEyeHeight));
+    // Allow the pawn to control camera rotation.
+    FPSCameraComponent->bUsePawnControlRotation = true;
+
+    // Create a first person mesh component for the owning player.
+    FPSMesh = CreateDefaultSubobject<USkeletalMeshComponent>("FirstPersonMesh");
+
+    // Only the owning player sees this mesh
+    FPSMesh->SetOnlyOwnerSee(true);
+
+    // Attach the FPS mesh to the FPS camera.
+    FPSMesh->SetupAttachment(FPSCameraComponent);
+
+    // Disable some environmental shadowing to preserve the illusion of having a single mesh.
+    FPSMesh->bCastDynamicShadow = false;
+    FPSMesh->CastShadow = false;
+
+    // The owning player doesn't see the regular (third-person) body mesh.
+    GetMesh()->SetOwnerNoSee(true);
 }
 
 // Called when the game starts or when spawned

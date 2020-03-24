@@ -41,4 +41,12 @@ public:
     // Clears jump flag when key is released.
     UFUNCTION()
     void StopJump();
+
+    // FPS Camera
+    UPROPERTY(VisibleAnywhere)
+    class UCameraComponent* FPSCameraComponent;
+
+    // First-person mesh (arms), visible only to the owning player.
+    UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
+    class USkeletalMeshComponent* FPSMesh;
 };
